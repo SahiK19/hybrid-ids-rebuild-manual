@@ -181,37 +181,71 @@ Summary:
 
 ---
 
-## Step 7 — Setup Agent VM (Snort + Correlator + Push)
+Step 7 — Setup Agent VM (Wazuh Agent + Snort + Correlator + Push)
 
-**Module:** `modules/agent-setup/`
-📌 **Follow the exact instructions in:** `modules/agent-setup/README.md`
+Before you follow the agent setup module README, you must register and install the Wazuh agent from the Wazuh Manager Dashboard.
 
-### 7A) Update Agent endpoints (AFTER backend + manager exist)
+✅ Current support note: This rebuild manual currently supports Ubuntu Server (DEB 64-bit / amd64) agents only.
 
-On Agent VM:
+Step 7A — Install the Wazuh Agent from the Wazuh Manager Dashboard (REQUIRED)
 
-* Edit:
+Open the Wazuh Dashboard in your browser (hosted on the Wazuh Manager EC2).
 
-  * `/etc/ids-agent/agent.env`
+Log in to the dashboard.
+
+Go to the Agents section (Agent management).
+
+Click Add agent (or Deploy new agent, depending on UI version).
+
+Choose:
+
+Operating System: Linux
+
+Distribution/Package: DEB amd64 (Ubuntu Server 64-bit)
+
+The dashboard will generate an install command.
+
+Copy the generated command exactly.
+
+Paste and run it on the Agent VM terminal (your Ubuntu Server agent machine).
+
+After installation, verify the agent shows as connected/active in the dashboard.
+
+Step 7B — Complete the Agent VM setup (Snort + Correlator + Push)
+
+Module: modules/agent-setup/
+📌 Follow the exact instructions in: modules/agent-setup/README.md
+
+This module completes the agent-side components:
+
+Snort installation + rules
+
+Correlator service
+
+Push services (Snort push + correlator push)
+
+Required configs and systemd services
+
+Step 7C — Update Agent endpoints (AFTER backend + manager exist)
+
+On the Agent VM, edit:
+
+/etc/ids-agent/agent.env
 
 Update these values:
 
-```env
 DASHBOARD_API_BASE_URL=http://<NEW_BACKEND_EC2_IP>:5000
 API_KEY=ids_vm_secret_key_123
 WAZUH_ALERTS_URL=http://<NEW_WAZUH_MANAGER_IP>:8001/alerts.json
 WAZUH_POLL_INTERVAL=5
-```
+
 
 Restart agent services after change:
 
-```bash
 sudo systemctl restart snort
 sudo systemctl restart snort-push
 sudo systemctl restart correlator
-```
 
----
 
 # Final Validation Checklist
 
