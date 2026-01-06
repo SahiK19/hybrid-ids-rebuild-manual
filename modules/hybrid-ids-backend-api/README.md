@@ -15,7 +15,7 @@ and exposes APIs for the dashboard.
 - Python 3.9+
 - Network access from IDS agents
 
-## Installation
+## Installation --(DO THIS)
 git clone https://github.com/SahiK19/hybrid-ids-backend-api.git  
 cd hybrid-ids-backend-api  
 pip3 install -r requirements.txt  
