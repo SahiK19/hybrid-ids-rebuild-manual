@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Handle API routes first
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.*)$ api/$1.php [QSA,L]
+
+# Handle other routes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

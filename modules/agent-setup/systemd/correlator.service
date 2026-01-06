@@ -1,0 +1,24 @@
+[Unit]
+Description=IDS Correlation Engine
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+
+EnvironmentFile=/etc/ids-agent/agent.env
+Environment="PYTHONPATH=/opt/ids-agent/scripts"
+Environment=PYTHONUNBUFFERED=1
+
+WorkingDirectory=/opt/ids-agent/scripts
+ExecStart=/bin/bash -lc '/opt/ids-agent/venv/bin/python3 -u /opt/ids-agent/scripts/correlate.py >> /var/log/ids-agent/correlator.log 2>&1'
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

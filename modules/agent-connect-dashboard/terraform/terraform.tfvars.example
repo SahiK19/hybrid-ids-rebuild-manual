@@ -1,0 +1,13 @@
+aws_region            = "ap-southeast-1"
+project_name          = "hybrid-ids"
+vpc_cidr              = "10.0.0.0/16"
+public_subnet_cidrs   = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs  = ["10.0.10.0/24", "10.0.11.0/24"]
+availability_zones    = ["ap-southeast-1a", "ap-southeast-1b"]
+frontend_bucket_name  = "hybrid-ids-frontend"
+ec2_instance_type     = "t3.micro"
+db_name               = "hybrididsdb"
+db_username           = "admin"
+rds_instance_class    = "db.t3.micro"
+rds_allocated_storage = 20
+rds_engine_version    = "8.0"
